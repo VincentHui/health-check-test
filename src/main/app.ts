@@ -1,5 +1,5 @@
 import { Application } from "@ubio/framework";
-import { StatusRouter } from "./routes/StatusRouter.js";
+import { AppGroupRouter } from "./routes/AppGroupRouter.js";
 import { LifeTimeCheckService } from "./services/LifeTimeCheckService.js";
 import { dep } from "mesh-ioc";
 import { RedisRepo } from "./repositories/RedisRepo.js";
@@ -13,7 +13,7 @@ export class App extends Application {
   @dep() checker!: LifeTimeCheckService;
   override createHttpRequestScope() {
     const mesh = super.createHttpRequestScope();
-    mesh.service(StatusRouter);
+    mesh.service(AppGroupRouter);
     return mesh;
   }
   override createGlobalScope() {

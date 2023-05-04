@@ -10,7 +10,7 @@ import { dep } from "mesh-ioc";
 import { AppToCheck, GetHash } from "../schema/AppToCheck.js";
 import { RedisRepo } from "../repositories/RedisRepo.js";
 
-export class StatusRouter extends Router {
+export class AppGroupRouter extends Router {
   @dep() repo!: RedisRepo;
   @Delete({
     path: "/{group}/{id}",
