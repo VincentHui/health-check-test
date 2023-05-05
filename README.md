@@ -12,6 +12,28 @@ A number of different client applications will periodically send heartbeats to t
 4. Run `npm run compile && npm run start` to both compile the typescript files and then run the application.
 5. Run `npm run compile && npm run test` to both compile the typescript files and then run the tests.
 
+## Application Structure
+
+```
+src/                                    // TypeScript sources
+    bin/                                // Runnable entrypoints
+        serve.ts                        // Start application HTTP server
+    main/
+        routes/                         // The functionality exposed by the application via HTTP
+        repositories/                   // Storage abstraction layer
+            redisRepo.ts
+        services/                       // Business logic abstraction layere
+            heartbeatCheckService.ts
+            reddisServer.ts
+        schema/                         // Domain model data structures
+            instance.ts
+        app.ts                          // Application class (IoC composition root)
+    test/
+out/                                    // Compiled output (.js and .d.ts files)
+    main/
+    test/
+```
+
 ## Using the Service
 
 Once the health check service is running, you can access it using a API tool like postman. The service provides the following endpoints:
@@ -76,7 +98,3 @@ Once the health check service is running, you can access it using a API tool lik
       // ...
     ];
     ```
-
-## License
-
-This health check service is licensed under the MIT License. See the `LICENSE` file for more information.
