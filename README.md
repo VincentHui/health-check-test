@@ -1,6 +1,6 @@
-# health-check-test service
+# heartbeat-test service
 
-This is a TypeScript Node.js application uses the [ubio node-framework](https://github.com/ubio/node-framework) to structure the application and use inversion of control (IoC) via mesh to manage dependencies. Redis is used for the DB logic and an in memory reddis server is used for both quick setup and for jest tests.
+This is a TypeScript Node.js application uses the [ubio node-framework](https://github.com/ubio/node-framework) to structure the application and use inversion of control (IoC) via mesh to manage dependencies. Redis is used for the noSQL DB logic and an in memory reddis server is used for both quick setup and for jest tests.
 
 A number of different client applications will periodically send heartbeats to this service, and the service keeps track of them, periodically removing those that didn't send any heartbeats based on the variable MAX_HEARTBEAT_AGE in the .env file. The default is currently set to 60000 ms or one minute.
 
@@ -98,3 +98,9 @@ Once the health check service is running, you can access it using a API tool lik
       // ...
     ];
     ```
+
+## Implementation notes
+
+- The ubio schema was not used although the structure and convention are used. The ubio schema wasn't used because it cannot use an object with the anyOf pattern properties for the meta object.
+- Although I used a redis client to make the needed commands to create the needed structure I would probably use a ORM for redis if I attempted this again. Also it seems pretty easy to head to redislabs to get a free tier redis db if you don't want to use the local reddis server. The connection url from redis labs would look something like this `` url: `redis://user:password@redis-10224.c78.eu-west-1-2.ec2.cloud.redislabs.com:10224`, ``
+- Even though some typos on the ubio framework or mesh IOC deep dives might have delayed me longer it was honestly a great framework to use overall and has given me alot of ideas for some of my own projects.

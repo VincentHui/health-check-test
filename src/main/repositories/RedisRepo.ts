@@ -7,7 +7,6 @@ export const GetLatestUpdatedApp = (Apps: Instance[]) =>
 
 export class RedisRepo {
   private client!: RedisClientType;
-  // private redisServer!: RedisMemoryServer;
 
   constructor() {}
 
@@ -117,7 +116,6 @@ export class RedisRepo {
 
   async Close() {
     await this.client.quit();
-    // await this.redisServer.stop();
     console.log("disconnect");
   }
 
