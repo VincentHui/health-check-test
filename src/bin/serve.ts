@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import "reflect-metadata";
 
-import { App } from "../main/app.js";
+import { App } from "../main/App.js";
 
 const app = new App();
 
