@@ -7,8 +7,8 @@ import {
   Delete,
 } from "@ubio/framework";
 import { dep } from "mesh-ioc";
-import { AppToCheck, GetHash } from "../schema/AppToCheck.js";
-import { RedisRepo } from "../repositories/RedisRepo.js";
+import { Instance, GetHash } from "../schema/instance.js";
+import { RedisRepo } from "../repositories/redisRepo.js";
 
 export class AppGroupRouter extends Router {
   @dep() repo!: RedisRepo;
@@ -44,7 +44,7 @@ export class AppGroupRouter extends Router {
     path: "/{group}/{id}",
     responses: {
       200: {
-        schema: AppToCheck.Schema,
+        schema: Instance.Schema,
       },
     },
   })
@@ -59,7 +59,7 @@ export class AppGroupRouter extends Router {
       },
     })
     meta: object
-  ): Promise<AppToCheck> {
+  ): Promise<Instance> {
     const hash = GetHash({ id, group });
     //add
     const result = await this.repo.HashExists(hash);
@@ -91,7 +91,7 @@ export class AppGroupRouter extends Router {
       200: {
         schema: {
           type: "array",
-          items: AppToCheck.Schema,
+          items: Instance.Schema,
         },
       },
     },
@@ -99,7 +99,7 @@ export class AppGroupRouter extends Router {
   async group(
     @PathParam("group", { schema: { type: "string" } })
     group: string
-  ): Promise<AppToCheck[]> {
+  ): Promise<Instance[]> {
     return await this.repo.GetInstancesInGroup(group);
   }
 

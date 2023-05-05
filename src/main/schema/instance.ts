@@ -1,6 +1,6 @@
 //cannot use Ubio schema since it cannot use an object with the anyOf pattern properties for meta
 
-export interface AppToCheck {
+export interface Instance {
   id: string;
   group: string;
   createdAt: number;
@@ -13,7 +13,7 @@ export const GetHash = ({ id, group }: { id: string; group: string }) =>
 
 export const MakeHash = (a: string, b: string) => `${a}:${b}`;
 
-export const AppToCheck = {
+export const Instance = {
   Schema: {
     type: "object",
     properties: {
@@ -24,13 +24,7 @@ export const AppToCheck = {
       meta: { type: "object" },
     },
   },
-  transformForRepo: ({
-    id,
-    group,
-    createdAt,
-    updatedAt,
-    meta,
-  }: AppToCheck) => ({
+  transformForRepo: ({ id, group, createdAt, updatedAt, meta }: Instance) => ({
     id,
     group,
     createdAt,
@@ -43,15 +37,9 @@ export const AppToCheck = {
       createdAt: parseInt(fromRedis["createdAt"]),
       updatedAt: parseInt(fromRedis["updatedAt"]),
       meta: JSON.parse(fromRedis["meta"]),
-    } as AppToCheck;
+    } as Instance;
   },
-  transformForRedis: ({
-    id,
-    group,
-    createdAt,
-    updatedAt,
-    meta,
-  }: AppToCheck) => ({
+  transformForRedis: ({ id, group, createdAt, updatedAt, meta }: Instance) => ({
     hash: GetHash({ id, group }),
     id,
     group,

@@ -2,7 +2,7 @@ import { Logger } from "@ubio/framework";
 import { dep } from "mesh-ioc";
 import { RedisMemoryServer } from "redis-memory-server";
 
-export class RedisServer {
+export class RedisService {
   private redisServer!: RedisMemoryServer;
 
   async Start() {

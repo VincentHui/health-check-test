@@ -1,8 +1,8 @@
 import { Logger } from "@ubio/framework";
 import { dep } from "mesh-ioc";
-import { RedisRepo } from "../repositories/RedisRepo.js";
+import { RedisRepo } from "../repositories/redisRepo.js";
 
-export class LifeTimeCheckService {
+export class HeartbeatCheckService {
   @dep() logger!: Logger;
   @dep() db!: RedisRepo;
   loopState: "Looping life check" | "Stopping life check" =

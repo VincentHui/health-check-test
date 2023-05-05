@@ -1,8 +1,8 @@
-import { RedisRepo } from "../main/repositories/RedisRepo.js";
-import { RedisServer } from "../main/services/ReddisServer.js";
+import { RedisRepo } from "../main/repositories/redisRepo.js";
+import { RedisService } from "../main/services/reddisService.js";
 
 let repo: RedisRepo = new RedisRepo();
-let redisServer: RedisServer = new RedisServer();
+let redisServer: RedisService = new RedisService();
 
 //https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
 function generateUUID() {

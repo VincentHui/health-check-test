@@ -1,9 +1,8 @@
-import { RedisMemoryServer } from "redis-memory-server";
 import { RedisClientType, createClient } from "redis";
-import { AppToCheck } from "../schema/AppToCheck.js";
-export const GetEarliestCreatedApp = (Apps: AppToCheck[]) =>
+import { Instance } from "../schema/instance.js";
+export const GetEarliestCreatedApp = (Apps: Instance[]) =>
   Apps.length >= 0 ? Apps.sort((a, b) => a.createdAt - b.createdAt)[0] : null;
-export const GetLatestUpdatedApp = (Apps: AppToCheck[]) =>
+export const GetLatestUpdatedApp = (Apps: Instance[]) =>
   Apps.length >= 0 ? Apps.sort((app) => app.updatedAt)[0] : null;
 
 export class RedisRepo {
@@ -26,8 +25,8 @@ export class RedisRepo {
     await this.client.connect();
   }
 
-  async Exists(app: AppToCheck) {
-    const { hash } = AppToCheck.transformForRedis(app);
+  async Exists(app: Instance) {
+    const { hash } = Instance.transformForRedis(app);
     return await this.HashExists(hash);
   }
 
@@ -35,8 +34,8 @@ export class RedisRepo {
     return await this.client.exists(hash);
   }
 
-  async Remove(app: AppToCheck) {
-    const { hash, group } = AppToCheck.transformForRedis(app);
+  async Remove(app: Instance) {
+    const { hash, group } = Instance.transformForRedis(app);
     return await this.RemoveByHash(hash, group);
   }
   async RemoveByHash(hash: string, group: string) {
@@ -45,8 +44,8 @@ export class RedisRepo {
   }
   private readonly groupsKey = "groups";
 
-  async Save(app: AppToCheck) {
-    const { hash: appHash, fields, group } = AppToCheck.transformForRedis(app);
+  async Save(app: Instance) {
+    const { hash: appHash, fields, group } = Instance.transformForRedis(app);
     //relate many app hash to one group
     await this.client.sAdd(group, appHash);
     //relate many groups to one groupsKey
@@ -101,18 +100,18 @@ export class RedisRepo {
 
   async GetByHash(hash: string) {
     const all = await this.client.hGetAll(hash);
-    return new Promise<AppToCheck>((res, rej) => {
+    return new Promise<Instance>((res, rej) => {
       //need more validation logic
       const valid =
         Object.keys(all).length ===
-        Object.keys(AppToCheck.Schema.properties).length;
+        Object.keys(Instance.Schema.properties).length;
       if (!valid) rej(new Error("notFound"));
-      res(AppToCheck.transformFromRedis(all));
+      res(Instance.transformFromRedis(all));
     });
   }
 
-  async Get(app: AppToCheck) {
-    const { hash } = AppToCheck.transformForRedis(app);
+  async Get(app: Instance) {
+    const { hash } = Instance.transformForRedis(app);
     return await this.GetByHash(hash);
   }
 
