@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/VincentHui/health-check-test/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/VincentHui/health-check-test/tree/main)
+
 # heartbeat-test service
 
 This is a TypeScript Node.js application uses the [ubio node-framework](https://github.com/ubio/node-framework) to structure the application and use inversion of control (IoC) via mesh to manage dependencies. Redis is used for the noSQL DB logic and an in memory reddis server is used for both quick setup and for jest tests.
