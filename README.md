@@ -4,7 +4,7 @@
 
 This is a TypeScript Node.js application uses the [ubio node-framework](https://github.com/ubio/node-framework) to structure the application and use inversion of control (IoC) via mesh to manage dependencies. Redis is used for the noSQL DB logic and an in memory reddis server is used for both quick setup and for jest tests.
 
-A number of different client applications will periodically send heartbeats to this service, and the service keeps track of them, periodically removing those that didn't send any heartbeats based on the variable MAX_HEARTBEAT_AGE in the .env file. The default is currently set to 60000 ms or one minute.
+A number of different client applications will periodically send heartbeats to this service, and the service keeps track of them, periodically removing those that didn't send any heartbeats based on the variable MAX_HEARTBEAT_AGE in the .env file. The default is currently set to 60000 ms or one minute. I understand its not the right convention to commit .env files to source, but in this instance for a quick startup it should be fine.
 
 ## Installation
 
